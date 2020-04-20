@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen5"
+    android:elevation="@dimen/dimen3"
+    bind:cardElevation="@dimen/dimen3"
+    card_view:cardCornerRadius="@dimen/dimen1"
+    tools:ignore="UnusedAttribute">
+
+    <RelativeLayout
+        android:id="@+id/rlParentSearchList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMoviePosterSearchList"
+            android:layout_width="@dimen/dimen120"
+            android:layout_height="@dimen/dimen120"
+            android:layout_marginStart="@dimen/dimen8"
+            android:layout_marginLeft="@dimen/dimen8"
+            android:layout_marginTop="@dimen/dimen8"
+            android:layout_marginBottom="@dimen/dimen8"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitXY" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movieNameSearchList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen8"
+            android:layout_marginTop="@dimen/dimen8"
+            android:layout_marginEnd="@dimen/dimen8"
+            android:layout_below="@+id/buttonAddBookmark"
+            android:layout_toRightOf="@+id/imgMoviePosterSearchList"
+            android:padding="@dimen/dimen4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font20"
+            tools:text="" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movieYearSearchList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieNameSearchList"
+            android:layout_marginStart="@dimen/dimen8"
+            android:layout_marginTop="@dimen/dimen4"
+            android:layout_marginEnd="@dimen/dimen8"
+            android:layout_toRightOf="@+id/imgMoviePosterSearchList"
+            android:padding="@dimen/dimen4"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/font16"
+            tools:text="" />
+
+        <Button
+            android:id="@+id/buttonAddBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="Add BookMark" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

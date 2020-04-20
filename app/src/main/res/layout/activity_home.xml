@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.HomeActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Movies"
+        app:titleTextColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen200">
+
+        <TextView
+            android:id="@+id/txtNoBookMarkMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font20"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:text="No bookmark movies"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHorizontalBookmarkList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen200"
+            android:layout_marginStart="@dimen/dimen8"
+            android:layout_marginLeft="@dimen/dimen8"
+            android:layout_marginTop="@dimen/dimen10"
+            android:layout_marginEnd="@dimen/dimen8"
+            android:layout_marginRight="@dimen/dimen8"
+            android:layout_marginBottom="@dimen/dimen8"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dimen8"
+        android:layout_marginLeft="@dimen/dimen8"
+        android:layout_marginTop="@dimen/dimen10"
+        android:layout_marginEnd="@dimen/dimen8"
+        android:layout_marginRight="@dimen/dimen8"
+        android:layout_marginBottom="@dimen/dimen8"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
