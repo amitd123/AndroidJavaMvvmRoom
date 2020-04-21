@@ -1,11 +1,15 @@
 package ap.com.goscaleassignmentkotlinmvvm.Database;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static androidx.room.OnConflictStrategy.IGNORE;
@@ -21,11 +25,10 @@ public interface BookMarkMoviesDao {
     void deleteAll();
 
     @Query("SELECT * FROM bookmarked_movies_table")
-    LiveData<List<BookMarkedMovies>> getAllBookMarkMovies();
+    List<BookMarkedMovies> getAllBookMarkMovies();
 
-    // Delete one item
-//    @Delete
-//    void deleteItem(BookMarkedMovies movies);
+    @Query("SELECT Title FROM bookmarked_movies_table")
+    LiveData<String> getTitleBookMarkMovies();
 
     //Delete one item by id
     @Query("DELETE FROM bookmarked_movies_table WHERE imdbID = :itemId")
@@ -33,4 +36,8 @@ public interface BookMarkMoviesDao {
 
     @Query("SELECT COUNT(imdbID) FROM bookmarked_movies_table")
     int countRecords();
+
+    @Query("SELECT imdbID FROM bookmarked_movies_table WHERE imdbID = :itemId")
+    boolean checkIfItemIsAvailabeInDatabase(String itemId);
+
 }

@@ -28,6 +28,7 @@ import java.util.List;
 import ap.com.goscaleassignmentkotlinmvvm.Activitys.HomeActivity;
 import ap.com.goscaleassignmentkotlinmvvm.Activitys.MovieDetailActivity;
 import ap.com.goscaleassignmentkotlinmvvm.Database.BookMarkedMovies;
+import ap.com.goscaleassignmentkotlinmvvm.Interfaces.GetDataInterface;
 import ap.com.goscaleassignmentkotlinmvvm.Models.SearchMovies.Search;
 import ap.com.goscaleassignmentkotlinmvvm.R;
 import ap.com.goscaleassignmentkotlinmvvm.ViewModel.DatabaseViewModel;
@@ -36,14 +37,20 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
 
     private List<Search> moviesSearchList;
     private Context context;
+    private Activity mActivity;
     private DatabaseViewModel databaseViewModel;
     private HomeActivity activity;
+    private GetDataInterface getDataInterface;
+    private int currentPosition = 0;
 
 
-    public SearchListAdapter(List<Search> moviesSearchList, Context context) {
+    public SearchListAdapter(List<Search> moviesSearchList, Context context,GetDataInterface getDataInterface) {
         this.moviesSearchList = moviesSearchList;
         this.context = context;
+        this.mActivity = (Activity) context;
         this.activity = (HomeActivity) context;
+        this.getDataInterface = getDataInterface;
+        databaseViewModel = ViewModelProviders.of((HomeActivity) context).get(DatabaseViewModel.class);
     }
 
 
@@ -67,37 +74,38 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.search_list_item, parent, false);
-
-
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        final Search movie = moviesSearchList.get(position);
+        Search movie = moviesSearchList.get(position);
         holder.movieNameSearchList.setText(movie.getTitle());
         holder.movieYearSearchList.setText(movie.getYear());
-
         Picasso.with(context).load(movie.getPoster()).placeholder(R.drawable.avatar).error(R.drawable.avatar).into(holder.imgMoviePosterSearchList);
 
+        if (databaseViewModel.checkIsItemAvailabe(movie.getImdbID())){
+            holder.buttonAddBookmark.setVisibility(View.GONE);
+        }else {
+            holder.buttonAddBookmark.setVisibility(View.VISIBLE);
+        }
+        currentPosition = position;
         holder.buttonAddBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                databaseViewModel = ViewModelProviders.of().get(DatabaseViewModel.class);
-                databaseViewModel = ViewModelProviders.of((HomeActivity) context).get(DatabaseViewModel.class);
-                BookMarkedMovies bookMarkedMovies = new BookMarkedMovies(movie.getImdbID(),movie.getTitle(),movie.getYear(),movie.getType(),movie.getPoster(),true);
+                BookMarkedMovies bookMarkedMovies = new BookMarkedMovies(moviesSearchList.get(currentPosition).getImdbID(),moviesSearchList.get(currentPosition).getTitle(),moviesSearchList.get(currentPosition).getYear(),moviesSearchList.get(currentPosition).getType(),moviesSearchList.get(currentPosition).getPoster(),true);
                 databaseViewModel.insert(bookMarkedMovies);
-//                databaseViewModel.getAllBookmarkMovies();
+                getDataInterface.updateBookMarkList();
             }
         });
         holder.rlParentSearchList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MovieDetailActivity.class);
-                i.putExtra("Title",movie.getTitle());
-                i.putExtra("Year",movie.getYear());
-                i.putExtra("Poster",movie.getPoster());
+                i.putExtra("Title",moviesSearchList.get(currentPosition).getTitle());
+                i.putExtra("Year",moviesSearchList.get(currentPosition).getYear());
+                i.putExtra("Poster",moviesSearchList.get(currentPosition).getPoster());
 
                 context.startActivity(i);
             }
@@ -114,5 +122,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         notifyItemRemoved(position);
         Toast.makeText(context, "Item Removed", Toast.LENGTH_SHORT).show();
     }
+
 
 }

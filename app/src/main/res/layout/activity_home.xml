@@ -17,6 +17,8 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchview"
+        app:queryHint="friends"
+        android:tooltipText="friends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true" />

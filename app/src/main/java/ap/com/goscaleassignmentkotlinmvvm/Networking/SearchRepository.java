@@ -35,7 +35,6 @@ public class SearchRepository {
                     searchData.setValue(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<MoviesSearchResponseModel> call, Throwable t) {
                 searchData.setValue(null);

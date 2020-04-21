@@ -4,6 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Search {
+
+    public Search(String title, String year, String imdbID, String type, String poster) {
+        this.title = title;
+        this.year = year;
+        this.imdbID = imdbID;
+        this.type = type;
+        this.poster = poster;
+    }
+
     @SerializedName("Title")
     @Expose
     private String title;
